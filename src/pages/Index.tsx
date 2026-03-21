@@ -1,4 +1,5 @@
 import ParticleField from "@/components/ParticleField";
+import Globe from "@/components/Globe";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
@@ -12,6 +13,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background grid-bg">
       <ParticleField />
+      <Globe />
       <Navbar />
       <main className="relative z-10">
         <HeroSection />
