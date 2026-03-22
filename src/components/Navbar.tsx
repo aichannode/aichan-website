@@ -33,8 +33,8 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         <a href="#" className="text-xl font-bold tracking-tight">
-          <span className="text-primary text-glow">Pedro</span>
-          <span className="text-foreground">Diaz</span>
+          <span className="text-primary text-glow">Eric</span>
+          <span className="text-foreground">Cui</span>
         </a>
 
         <div className="hidden md:flex items-center gap-8">
