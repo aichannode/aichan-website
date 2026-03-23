@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { ExternalLink, Github } from "lucide-react";
+import flashLaunchThumb from "@/assets/flash-launch.png";
 
 const projects = [
   {
@@ -9,6 +10,7 @@ const projects = [
       "No-code decentralized launchpad for token creation, presales, and fair launches—with KYC and investor-focused tooling.",
     tags: ["Next.js", "TypeScript", "Node.js", "EVM"],
     color: "from-primary/20 to-accent/10",
+    image: flashLaunchThumb,
     link: "https://flash-launch.com",
     github: "https://github.com/squirdev/Flash-Launch/",
   },
@@ -85,11 +87,26 @@ const ProjectsSection = () => {
               transition={{ duration: 0.5, delay: 0.1 * i }}
               className="group rounded-2xl bg-card border border-border hover:border-primary/40 transition-all duration-500 overflow-hidden flex flex-col"
             >
-              <div className={`h-40 bg-gradient-to-br ${project.color} flex items-center justify-center relative`}>
-                <div className="text-4xl font-bold text-primary/30 group-hover:text-primary/50 transition-colors font-mono">
-                  {`0${i + 1}`}
-                </div>
-                <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div
+                className={`h-40 flex items-center justify-center relative overflow-hidden ${
+                  project.image ? "" : `bg-gradient-to-br ${project.color}`
+                }`}
+              >
+                {project.image ? (
+                  <>
+                    <img
+                      src={project.image}
+                      alt=""
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/20 to-transparent pointer-events-none" />
+                  </>
+                ) : (
+                  <div className="text-4xl font-bold text-primary/30 group-hover:text-primary/50 transition-colors font-mono">
+                    {`0${i + 1}`}
+                  </div>
+                )}
+                <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
                   <a
                     href={project.github}
                     target="_blank"
