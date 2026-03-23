@@ -4,12 +4,13 @@ import { ExternalLink, Github } from "lucide-react";
 
 const projects = [
   {
-    title: "flash-launch.com",
-    description: "Token launch platform for fast, transparent project launches.",
-    tags: ["Next.js", "TypeScript", "Solana", "Web3"],
+    title: "Flash Launch",
+    description:
+      "No-code decentralized launchpad for token creation, presales, and fair launches—with KYC and investor-focused tooling.",
+    tags: ["Next.js", "TypeScript", "Node.js", "EVM"],
     color: "from-primary/20 to-accent/10",
     link: "https://flash-launch.com",
-    github: "#",
+    github: "https://github.com/squirdev/Flash-Launch/",
   },
   {
     title: "Solana NFT Marketplace",
