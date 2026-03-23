@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { ExternalLink, Github } from "lucide-react";
 import flashLaunchThumb from "@/assets/flash-launch.png";
 import tvtFrontendThumb from "@/assets/tvt-frontend.png";
+import tokenTool from "@/assets/token-tool.png";
 
 const projects = [
   {
@@ -14,6 +15,16 @@ const projects = [
     image: flashLaunchThumb,
     link: "https://flash-launch.com",
     github: "https://github.com/squirdev/Flash-Launch/",
+  },
+  {
+    title: "TokenTool.io",
+    description:
+      "Create and deploy ERC20 and Solana SPL tokens in minutes—EVM chains plus Solana, with Raydium liquidity tooling.",
+    tags: ["Next.js", "TypeScript", "Solana", "EVM"],
+    color: "from-accent/15 to-primary/20",
+    image: tokenTool,
+    link: "https://www.tokentool.io/",
+    github: "https://github.com/squirdev/TokenTool",
   },
   {
     title: "Solana NFT Marketplace",
