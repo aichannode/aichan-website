@@ -2,6 +2,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { ExternalLink, Github } from "lucide-react";
 import flashLaunchThumb from "@/assets/flash-launch.png";
+import tvtFrontendThumb from "@/assets/tvt-frontend.png";
 
 const projects = [
   {
@@ -33,8 +34,9 @@ const projects = [
   {
     title: "Track Verify Trust",
     description: "Blockchain-based supply chain tracking platform on Solana, enabling transparent product verification for consumers and businesses.",
-    tags: ["Solana", "React", "TypeScript", "Anchor"],
+    tags: ["React", "TypeScript", "Material Tailwind"],
     color: "from-accent/20 to-primary/10",
+    image: tvtFrontendThumb,
     link: "https://tvt-front.vercel.app/",
     github: "https://github.com/squirdev/TVT-Front",
   },
@@ -88,9 +90,8 @@ const ProjectsSection = () => {
               className="group rounded-2xl bg-card border border-border hover:border-primary/40 transition-all duration-500 overflow-hidden flex flex-col"
             >
               <div
-                className={`h-40 flex items-center justify-center relative overflow-hidden ${
-                  project.image ? "" : `bg-gradient-to-br ${project.color}`
-                }`}
+                className={`h-40 flex items-center justify-center relative overflow-hidden ${project.image ? "" : `bg-gradient-to-br ${project.color}`
+                  }`}
               >
                 {project.image ? (
                   <>
