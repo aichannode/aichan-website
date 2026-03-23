@@ -4,6 +4,7 @@ import { ExternalLink, Github } from "lucide-react";
 import flashLaunchThumb from "@/assets/flash-launch.png";
 import tvtFrontendThumb from "@/assets/tvt-frontend.png";
 import tokenTool from "@/assets/token-tool.png";
+import circularRing from "@/assets/circular-ring.png";
 
 const projects = [
   {
@@ -73,8 +74,9 @@ const projects = [
       "React Native mobile app—native UI and performance on iOS and Android from a single codebase.",
     tags: ["React Native", "TypeScript", "Mobile"],
     color: "from-primary/10 to-accent/20",
+    image: circularRing,
     link: "https://play.google.com/store/apps/details?id=xyz.circular.circular&hl=en_US&pli=1",
-    github: "#",
+    github: "https://github.com/squirdev/circular-ring",
   },
 ];
 
