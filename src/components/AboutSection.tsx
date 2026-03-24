@@ -20,7 +20,6 @@ const AboutSection = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="max-w-5xl mx-auto"
         >
           <div className="flex items-center gap-3 mb-4">
             <div className="h-px w-12 bg-primary" />
@@ -30,7 +29,14 @@ const AboutSection = () => {
           <h2 className="text-3xl md:text-5xl font-bold mb-8 text-foreground">
             Crafting the <span className="gradient-text">Decentralized Future</span>
           </h2>
+        </motion.div>
 
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.08 }}
+          className="max-w-5xl mx-auto"
+        >
           <div className="grid md:grid-cols-2 gap-12 mb-16">
             <div className="space-y-5 text-muted-foreground leading-relaxed">
               <p>
