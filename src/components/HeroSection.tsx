@@ -31,7 +31,7 @@ const HeroSection = () => {
             className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-6"
           >
             <span className="text-foreground">Hi, I'm </span>
-            <span className="gradient-text">Eric</span>
+            <span className="gradient-text">Jesus</span>
             <br />
             <span className="text-foreground text-4xl md:text-5xl lg:text-6xl">
               Blockchain & AI Engineer
