@@ -25,7 +25,6 @@ const AboutSection = () => {
             <div className="h-px w-12 bg-primary" />
             <span className="text-primary font-mono text-sm tracking-wider uppercase">About Me</span>
           </div>
-
           <h2 className="text-3xl md:text-5xl font-bold mb-8 text-foreground">
             Crafting the <span className="gradient-text">Decentralized Future</span>
           </h2>

@@ -4,6 +4,7 @@ import flashLaunchThumb from "@/assets/flash-launch.png";
 import tvtFrontendThumb from "@/assets/tvt-frontend.png";
 import tokenTool from "@/assets/token-tool.png";
 import circularRing from "@/assets/circular-ring.png";
+import aptosFamousFoxThumb from "@/assets/aptos-famous-fox.png";
 
 const projects = [
   {
@@ -27,11 +28,13 @@ const projects = [
     github: "https://github.com/aichannode/TokenTool",
   },
   {
-    title: "Solana NFT Marketplace",
-    description: "Full-featured NFT marketplace on Solana with auction mechanics, collection analytics, and real-time price feeds.",
-    tags: ["Rust", "Anchor", "Next.js", "Metaplex"],
+    title: "Aptos — Famous Fox Federation",
+    description:
+      "Utility suite for Famous Fox Federation on Aptos—NFT mint, bulk send, peer-to-peer swap, bulk list/delist, and related NFT workflows.",
+    tags: ["Next.js", "TypeScript", "Aptos", "NFT"],
     color: "from-accent/20 to-primary/10",
-    link: "#",
+    image: aptosFamousFoxThumb,
+    link: "https://aptos.famousfoxes.com/",
     github: "#",
   },
   {
@@ -127,45 +130,45 @@ const ProjectsSection = () => {
             );
 
             return (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 * i }}
-              className="group rounded-2xl bg-card border border-border hover:border-primary/40 transition-all duration-500 overflow-hidden flex flex-col"
-            >
-              {live ? (
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${shellClass} cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset`}
-                  aria-label={`Open ${project.title}`}
-                >
-                  {thumbnailInner}
-                </a>
-              ) : (
-                <div className={shellClass}>{thumbnailInner}</div>
-              )}
-              <div className="p-6 flex flex-col flex-1">
-                <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-sm text-muted-foreground mb-4 flex-1 leading-relaxed">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2.5 py-1 rounded-md bg-secondary text-xs font-mono text-muted-foreground"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+              <motion.div
+                key={project.title}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.1 * i }}
+                className="group rounded-2xl bg-card border border-border hover:border-primary/40 transition-all duration-500 overflow-hidden flex flex-col"
+              >
+                {live ? (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${shellClass} cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset`}
+                    aria-label={`Open ${project.title}`}
+                  >
+                    {thumbnailInner}
+                  </a>
+                ) : (
+                  <div className={shellClass}>{thumbnailInner}</div>
+                )}
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-4 flex-1 leading-relaxed">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-2.5 py-1 rounded-md bg-secondary text-xs font-mono text-muted-foreground"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
             );
           })}
         </div>
