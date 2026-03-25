@@ -1,10 +1,68 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import { Mail, MapPin, Github, Linkedin, Send } from "lucide-react";
+import { useRef, useState, type FormEvent } from "react";
+import { Loader2, Mail, MapPin, Github, Send } from "lucide-react";
+import { toast } from "sonner";
+
+const WEB3FORMS_URL = "https://api.web3forms.com/submit";
 
 const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string | undefined;
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    if (!name.trim() || !email.trim() || !message.trim()) {
+      toast.error("Please fill in your name, email, and message.");
+      return;
+    }
+
+    if (!accessKey) {
+      toast.error("Contact form is not configured. Add VITE_WEB3FORMS_ACCESS_KEY to your .env file.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const res = await fetch(WEB3FORMS_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: name.trim(),
+          email: email.trim(),
+          message: message.trim(),
+          subject: `Portfolio contact from ${name.trim()}`,
+        }),
+      });
+
+      const data = (await res.json()) as { success?: boolean; message?: string };
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.message || "Something went wrong.");
+      }
+
+      toast.success("Message sent. I'll get back to you soon.");
+      setName("");
+      setEmail("");
+      setMessage("");
+    } catch (err) {
+      const text = err instanceof Error ? err.message : "Failed to send. Try again or email directly.";
+      toast.error(text);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section id="contact" className="py-32 relative" ref={ref}>
@@ -59,10 +117,7 @@ const ContactSection = () => {
               </div>
 
               <div className="flex gap-3 pt-4">
-                {[
-                  { icon: Github, href: "https://github.com/aichannode", label: "GitHub" },
-                  // { icon: Linkedin, href: "#", label: "LinkedIn" },
-                ].map(({ icon: Icon, href, label }) => (
+                {[{ icon: Github, href: "https://github.com/aichannode", label: "GitHub" }].map(({ icon: Icon, href, label }) => (
                   <a
                     key={label}
                     href={href}
@@ -76,31 +131,56 @@ const ContactSection = () => {
               </div>
             </div>
 
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className="space-y-4"
-            >
+            <form onSubmit={handleSubmit} className="space-y-4">
               <input
                 type="text"
+                name="name"
+                autoComplete="name"
                 placeholder="Your Name"
-                className="w-full px-4 py-3 rounded-lg bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                disabled={isSubmitting}
+                className="w-full px-4 py-3 rounded-lg bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors disabled:opacity-60"
               />
               <input
                 type="email"
+                name="email"
+                autoComplete="email"
                 placeholder="Your Email"
-                className="w-full px-4 py-3 rounded-lg bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                disabled={isSubmitting}
+                className="w-full px-4 py-3 rounded-lg bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors disabled:opacity-60"
               />
               <textarea
+                name="message"
                 rows={4}
                 placeholder="Your Message"
-                className="w-full px-4 py-3 rounded-lg bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                required
+                disabled={isSubmitting}
+                className="w-full px-4 py-3 rounded-lg bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none disabled:opacity-60"
               />
               <button
                 type="submit"
-                className="w-full px-6 py-3.5 rounded-lg bg-primary text-primary-foreground font-semibold hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 flex items-center justify-center gap-2"
+                disabled={isSubmitting}
+                aria-busy={isSubmitting}
+                className="w-full px-6 py-3.5 rounded-lg bg-primary text-primary-foreground font-semibold hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70 disabled:pointer-events-none"
               >
-                Send Message
-                <Send size={16} />
+                {isSubmitting ? (
+                  <>
+                    <Loader2 size={16} className="animate-spin" />
+                    Sending…
+                  </>
+                ) : (
+                  <>
+                    Send Message
+                    <Send size={16} />
+                  </>
+                )}
               </button>
             </form>
           </div>

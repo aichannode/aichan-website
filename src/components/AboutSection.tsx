@@ -4,8 +4,8 @@ import { useRef } from "react";
 
 const stats = [
   { value: "10+", label: "Years Experience" },
-  { value: "30+", label: "Happy Clients" },
-  { value: "25+", label: "Projects Delivered" },
+  { value: "15+", label: "Happy Clients" },
+  { value: "15+", label: "Projects Delivered" },
   { value: "5", label: "Awards Won" },
 ];
 
@@ -40,24 +40,24 @@ const AboutSection = () => {
           <div className="grid md:grid-cols-2 gap-12 mb-16">
             <div className="space-y-5 text-muted-foreground leading-relaxed">
               <p>
-                I'm a passionate Blockchain and AI Engineer with deep expertise in EVM-compatible chains, 
-                Solana, and Large Language Models. Currently working at <span className="text-primary font-semibold">RadCrew</span>, 
+                I'm a passionate Blockchain and AI Engineer with deep expertise in EVM-compatible chains,
+                Solana, and Large Language Models. Currently working at <span className="text-primary font-semibold">RadCrew</span>,
                 I build cutting-edge decentralized applications and AI-powered solutions.
               </p>
               <p>
-                From smart contract development and DeFi protocols to building intelligent 
-                AI agents, I thrive at the intersection of Web3 and artificial intelligence — 
+                From smart contract development and DeFi protocols to building intelligent
+                AI agents, I thrive at the intersection of Web3 and artificial intelligence —
                 creating technology that's both powerful and accessible.
               </p>
             </div>
             <div className="space-y-5 text-muted-foreground leading-relaxed">
               <p>
-                My journey spans from architecting complex on-chain systems on Ethereum and Solana 
-                to fine-tuning LLMs and building production-grade AI applications. I believe in 
+                My journey spans from architecting complex on-chain systems on Ethereum and Solana
+                to fine-tuning LLMs and building production-grade AI applications. I believe in
                 writing clean, auditable code that stands the test of adversarial environments.
               </p>
               <p>
-                When I'm not shipping code, I'm exploring the latest in zero-knowledge proofs, 
+                When I'm not shipping code, I'm exploring the latest in zero-knowledge proofs,
                 chain abstraction, and multi-modal AI systems.
               </p>
             </div>

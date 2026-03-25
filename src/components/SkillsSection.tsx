@@ -3,24 +3,63 @@ import { useRef } from "react";
 
 const skillCategories = [
   {
-    title: "Blockchain",
-    icon: "⛓️",
-    skills: ["EVM (Solidity)", "Rust (Solana, Anchor)", "Polkadot (Rust, Substrate)", "Hardhat", "Wagmi", "Viem"],
-  },
-  {
-    title: "AI / LLM",
-    icon: "🧠",
-    skills: ["LangChain (LangGraph, LangSmith)", "RAG", "AutoGen", "CrewAI", "n8n", "Fine-tuning", "Vector DBs", "Prompt Engineering", "MCP",],
-  },
-  {
     title: "Frontend",
     icon: "🎨",
-    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Material UI", "TanStack Query", "Redux-Saga"],
+    skills: [
+      "TypeScript",
+      "React",
+      "Next.js",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "TanStack Query",
+      "Zustand",
+      "React Hook Form",
+      "Zod",
+      "Framer Motion",
+    ],
   },
   {
     title: "Backend & DevOps",
     icon: "⚙️",
-    skills: ["Node.js", "Django (Python)", "PostgreSQL", "Redis", "RabbitMQ", "GraphQL", "Docker", "AWS Lambda", "CI/CD", "Kubernetes"],
+    skills: [
+      "Node.js",
+      "Django (Python)",
+      "GraphQL",
+      "PostgreSQL",
+      "Redis",
+      "RabbitMQ",
+      "Docker",
+      "CI/CD",
+      "AWS Lambda",
+      "Kubernetes",
+    ],
+  },
+  {
+    title: "Blockchain",
+    icon: "⛓️",
+    skills: [
+      "EVM (Solidity)",
+      "Hardhat",
+      "Wagmi",
+      "Viem",
+      "Rust (Solana, Anchor)",
+      "Polkadot (Rust, Substrate)",
+    ],
+  },
+  {
+    title: "AI / LLM",
+    icon: "🧠",
+    skills: [
+      "LangChain (LangGraph, LangSmith)",
+      "Prompt Engineering",
+      "RAG",
+      "Vector DBs",
+      "Fine-tuning",
+      "MCP",
+      "AutoGen",
+      "CrewAI",
+      "n8n",
+    ],
   },
 ];
 
