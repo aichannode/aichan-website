@@ -7,67 +7,40 @@ const experiences = [
     company: "Copy.ai",
     period: "Oct 2024 – Feb 2026",
     current: true,
-    bullets: [
-      "Shipped UI, APIs, and integrations for workflows, chat, and GTM automations (content, prospecting, leads, localization).",
-      "Managed production maintenance by monitoring, debugging, fixing, and rollout iteration.",
-      "Built RAG with LangChain; indexed and retrieved context in vector DBs (Pinecone) for grounded, customer-specific output.",
-      "Owned prompts, lightweight evals, and guardrails; kept copy on-brand and safe across segments.",
-      "Ran multiple LLM APIs in production; tuned latency, cost, and fallbacks under load.",
-    ],
+    summary:
+      "Built and maintained GTM AI features—workflows, chat, and integrations—plus RAG with LangChain and Pinecone, prompt guardrails, and production LLM APIs with cost and latency tuning.",
   },
   {
     role: "Web3 Engineer",
     company: "Thorswap Finance",
     period: "Oct 2023 – Sep 2024",
     current: false,
-    bullets: [
-      "Contributed to SwapKit SDK for cross-chain, non-custodial swaps across 20+ networks and thousands of assets.",
-      "Integrated THORChain, Chainflip, and Maya for quotes and swap routing.",
-      "Delivered integrator-facing REST APIs and an SDK covering quotes, swaps, provider/token discovery, and swap status.",
-      "Built transaction construction for multi-chain wallets by integrating dozens of wallet SDKs.",
-      "Implemented optional pre-trade AML/KYT screening on involved addresses via multiple compliance providers.",
-    ],
+    summary:
+      "Worked on SwapKit and APIs for cross-chain swaps across many networks, integrating THORChain, Chainflip, and Maya, plus wallet flows and optional AML/KYT screening.",
   },
   {
     role: "Full-Stack & Blockchain Engineer",
     company: "Flash Technologies",
     period: "Mar 2021 – Oct 2023",
     current: false,
-    bullets: [
-      "Delivered DeFi ecosystems: tokenization, presales, staking, launchpads, and NFT utilities.",
-      "Designed and deployed smart contracts on Ethereum-compatible chains.",
-      "Built Solana programs with Rust and Anchor.",
-      "Coordinated third-party smart contract audits (CertiK); managed scope, fixes, and re-reviews.",
-      "Integrated Slither and custom analysis pipelines.",
-    ],
+    summary:
+      "Shipped DeFi products—token launches, presales, launchpads, and NFT utilities—with Solidity on EVM, Solana programs in Rust/Anchor, audit coordination (CertiK), and Slither-based analysis.",
   },
   {
     role: "Blockchain Developer",
     company: "ICICB",
     period: "Jan 2019 – Jul 2020",
     current: false,
-    bullets: [
-      "Integrated dapps and services with Web3.js and Ethers.js across multiple networks.",
-      "Developed a mobile wallet in React Native.",
-      "Forked and customized DEX platforms for swaps, pools, and trading workflows.",
-      "Built trading bots with configurable strategies and automated execution.",
-      "Delivered NFT marketplaces and NFT games as end-user products.",
-    ],
+    summary:
+      "Delivered Web3 integrations and a React Native wallet, customized DEX-style platforms, trading automation, and NFT marketplaces and games.",
   },
   {
     role: "Web & Mobile Developer",
     company: "Beyond Finance",
     period: "Jan 2016 – Dec 2018",
     current: false,
-    bullets: [
-      "Built full-stack features for a consumer debt-resolution product (clear payoff paths, lower monthly payments, multi-year plans).",
-      "Shipped Node.js (Express/Koa) REST APIs on AWS EC2; used CloudWatch for PM2/app and system logs.",
-      "Configured AWS Budgets and CloudWatch alarms for spend, outages, and CPU spikes.",
-      "Managed MongoDB collections and migration scripts for releases.",
-      "Built landing pages and client dashboards in React and Next.js; integrated REST APIs and Redux for state.",
-      "Consolidated legacy iOS/Android apps into a React Native app; published to the App Store and Google Play.",
-      "Owned CI/CD, signing certs/keystores, native modules where needed, and dependency upgrades.",
-    ],
+    summary:
+      "Built full-stack features for a consumer debt-resolution product on Node.js and AWS, React/Next.js dashboards, and a consolidated React Native app shipped to the App Store and Google Play.",
   },
 ];
 
@@ -125,11 +98,7 @@ const ExperienceSection = () => {
                   <span className="text-muted-foreground text-sm">•</span>
                   <span className="text-muted-foreground text-sm font-mono">{exp.period}</span>
                 </div>
-                <ul className="text-muted-foreground text-sm leading-relaxed space-y-2 list-disc list-outside pl-4 marker:text-primary/60">
-                  {exp.bullets.map((bullet) => (
-                    <li key={bullet}>{bullet}</li>
-                  ))}
-                </ul>
+                <p className="text-muted-foreground text-sm leading-relaxed">{exp.summary}</p>
               </div>
             </motion.div>
           ))}
