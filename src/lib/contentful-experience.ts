@@ -2,12 +2,11 @@ import type { Entry, EntryCollection } from "contentful";
 import { env } from "@/config/env";
 import { getContentfulClient, isContentfulConfigured } from "@/lib/contentful";
 
-/** Your Contentful filter value for the parent `experiences` entry (Short text field `nickname`). */
-export const CONTENTFUL_OWNER_NICKNAME = "aichannode";
+/** Parent `experiences.name` value used for this portfolio owner. */
+export const CONTENTFUL_OWNER_NAME = "aichannode";
 
 /** Default content type API IDs — override with `VITE_CONTENTFUL_CT_EXPERIENCES` if yours differ. */
 export const CONTENT_TYPE_EXPERIENCES = "experiences";
-export const CONTENT_TYPE_EXPERIENCE = "experience";
 
 export type ExperienceCard = {
   id: string;
@@ -26,14 +25,8 @@ function unwrapLocale<T = unknown>(value: T): T | unknown {
   const keys = Object.keys(o);
   if (keys.length === 0) return value;
   const localeLike = (k: string) => /^[a-z]{2}(-[A-Z]{2})?$/.test(k);
-  if (keys.every(localeLike)) {
-    const v =
-      o["en-US"] ??
-      o["en"] ??
-      o[keys[0]];
-    return v as unknown;
-  }
-  return value;
+  if (!keys.every(localeLike)) return value;
+  return (o["en-US"] ?? o["en"] ?? o[keys[0]]) as unknown;
 }
 
 function asString(v: unknown): string {
@@ -45,15 +38,27 @@ function readTextField(fields: Record<string, unknown>, key: string): string {
   return asString(fields[key]).trim();
 }
 
-function readBooleanField(fields: Record<string, unknown>, key: string): boolean {
-  const u = unwrapLocale(fields[key]);
-  return u === true || u === "true";
+function readDateField(fields: Record<string, unknown>, key: string): Date | null {
+  const raw = readTextField(fields, key);
+  if (!raw) return null;
+  const d = new Date(raw);
+  return Number.isNaN(d.getTime()) ? null : d;
+}
+
+function formatMonthYear(date: Date): string {
+  return new Intl.DateTimeFormat("en-US", { month: "short", year: "numeric" }).format(date);
+}
+
+function buildPeriod(startDate: Date | null, endDate: Date | null): string {
+  if (!startDate && !endDate) return "—";
+  if (startDate && !endDate) return `${formatMonthYear(startDate)} – Present`;
+  if (!startDate && endDate) return `Until ${formatMonthYear(endDate)}`;
+  return `${formatMonthYear(startDate!)} – ${formatMonthYear(endDate!)}`;
 }
 
 function getEntryFields(entry: Entry): Record<string, unknown> {
   const raw = entry.fields as Record<string, unknown>;
-  if (!raw) return {};
-  return raw;
+  return raw ?? {};
 }
 
 function mapExperienceEntry(entry: Entry): ExperienceCard | null {
@@ -61,22 +66,24 @@ function mapExperienceEntry(entry: Entry): ExperienceCard | null {
   const role = readTextField(f, "role");
   const company = readTextField(f, "company");
   if (!role && !company) return null;
+
+  const startDate = readDateField(f, "startDate");
+  const endDate = readDateField(f, "endDate");
+
   return {
     id: entry.sys.id,
     role: role || "—",
     company: company || "—",
-    period: readTextField(f, "period") || "—",
-    current: readBooleanField(f, "current"),
-    summary: readTextField(f, "summary") || "",
+    period: buildPeriod(startDate, endDate),
+    current: Boolean(startDate) && !endDate,
+    summary: readTextField(f, "content") || "",
   };
 }
 
 function collectIncludedEntries(includes: EntryCollection<Entry>["includes"]): Map<string, Entry> {
   const map = new Map<string, Entry>();
-  if (!includes) return map;
-  const list = includes.Entry;
-  if (!Array.isArray(list)) return map;
-  for (const e of list) {
+  if (!includes?.Entry?.length) return map;
+  for (const e of includes.Entry) {
     if (e?.sys?.id) map.set(e.sys.id, e);
   }
   return map;
@@ -85,8 +92,7 @@ function collectIncludedEntries(includes: EntryCollection<Entry>["includes"]): M
 function getItemsArray(parent: Entry): unknown[] {
   const f = getEntryFields(parent);
   const raw = unwrapLocale(f.items);
-  if (Array.isArray(raw)) return raw;
-  return [];
+  return Array.isArray(raw) ? raw : [];
 }
 
 function resolveExperienceItems(parent: Entry, includes: EntryCollection<Entry>["includes"]): ExperienceCard[] {
@@ -106,16 +112,14 @@ function resolveExperienceItems(parent: Entry, includes: EntryCollection<Entry>[
 
     const sys = obj.sys;
     const id =
-      sys?.type === "Link" && sys.linkType === "Entry" && "id" in sys && typeof sys.id === "string"
+      sys?.type === "Link" && sys.linkType === "Entry" && typeof sys.id === "string"
         ? sys.id
         : undefined;
-    if (id) {
-      const linked = byId.get(id);
-      if (linked) {
-        const card = mapExperienceEntry(linked);
-        if (card) out.push(card);
-      }
-    }
+    if (!id) continue;
+    const linked = byId.get(id);
+    if (!linked) continue;
+    const card = mapExperienceEntry(linked);
+    if (card) out.push(card);
   }
 
   return out;
@@ -126,10 +130,10 @@ function experiencesContentType(): string {
 }
 
 /**
- * Loads the published `experiences` parent entry and resolves `items` → `experience` entries.
+ * Loads published `experiences` parent entry and resolves `items` → `experience` entries.
  *
  * - Prefer `VITE_CONTENTFUL_EXPERIENCES_ENTRY_ID` when set.
- * - Otherwise queries by `nickname` (non-localized or common `en-US` / `en` field paths).
+ * - Otherwise queries parent by `fields.name = aichannode` (plus localized attempts).
  */
 export async function fetchExperiencesFromCms(): Promise<ExperienceCard[]> {
   if (!isContentfulConfigured()) {
@@ -150,12 +154,10 @@ export async function fetchExperiencesFromCms(): Promise<ExperienceCard[]> {
     return resolveExperienceItems(res.items[0], res.includes);
   }
 
-  const nickname = env.contentfulExperiencesNickname ?? CONTENTFUL_OWNER_NICKNAME;
-
   const attempts: Record<string, string>[] = [
-    { "fields.nickname": nickname },
-    { "fields.nickname.en-US": nickname },
-    { "fields.nickname.en": nickname },
+    { "fields.name": CONTENTFUL_OWNER_NAME },
+    { "fields.name.en-US": CONTENTFUL_OWNER_NAME },
+    { "fields.name.en": CONTENTFUL_OWNER_NAME },
   ];
 
   for (const fieldQuery of attempts) {

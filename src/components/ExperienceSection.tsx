@@ -78,7 +78,7 @@ const ExperienceSection = () => {
                 <>
                   No experience entries returned from Contentful. Confirm the parent content type ID (default{" "}
                   <code className="font-mono text-xs">experiences</code>), field{" "}
-                  <code className="font-mono text-xs">nickname</code> (or localized{" "}
+                  <code className="font-mono text-xs">name</code> (or localized{" "}
                   <code className="font-mono text-xs">en-US</code>) is <code className="font-mono text-xs">aichannode</code>,{" "}
                   <code className="font-mono text-xs">items</code> references are published, or set{" "}
                   <code className="font-mono text-xs">VITE_CONTENTFUL_EXPERIENCES_ENTRY_ID</code>.
