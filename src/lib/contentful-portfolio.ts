@@ -12,6 +12,7 @@ export type PortfolioCard = {
   description: string;
   skills: string[];
   image?: string;
+  link?: string;
 };
 
 function unwrapLocale<T = unknown>(value: T): T | unknown {
@@ -75,6 +76,7 @@ function mapPortfolioEntry(entry: Entry): PortfolioCard | null {
     description: description || "",
     skills: readStringListField(f, "skills"),
     image: readImageUrl(f),
+    link: toUrl(readTextField(f, "link")),
   };
 }
 
