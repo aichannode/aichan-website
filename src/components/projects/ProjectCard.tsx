@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import type { DisplayProject } from "@/components/projects/project-types";
 
 export type { DisplayProject } from "@/components/projects/project-types";
@@ -68,7 +69,15 @@ export function ProjectCard({ project, index, isInView, defaultGradient, onOpenD
         className="flex flex-col flex-1 w-full cursor-pointer text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset rounded-2xl"
         aria-label={`View details: ${project.title}`}
       >
-        <div className={shellClass}>{thumbnail}</div>
+        <div className={shellClass}>
+          {thumbnail}
+          <div
+            className="pointer-events-none absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-md border border-border/60 bg-background/90 text-muted-foreground shadow-sm backdrop-blur-sm transition-colors duration-300 group-hover:border-primary/35 group-hover:text-primary"
+            aria-hidden
+          >
+            <ArrowUpRight className="h-4 w-4" strokeWidth={2.25} />
+          </div>
+        </div>
         {body}
       </button>
     </motion.div>

@@ -10,10 +10,15 @@ export type PortfolioCard = {
   title: string;
   description: string;
   skills: string[];
-  /** Grid thumbnail: first URL from CMS `images` or first entry in `images` for static data. */
+  /** Grid / card cover: CMS `thumbnail` when set, else first URL from `images` (or first entry in static fallback data). */
   image?: string;
-  /** Remaining gallery URLs after the first (detail modal carousel). Omitted when only one asset. */
+  /** Remaining gallery URLs after the first (detail modal carousel). Omitted when only one asset. Used when `galleryUrls` is not set. */
   images?: string[];
+  /**
+   * Full list of modal carousel URLs from CMS `images` only.
+   * When set (Contentful), the modal does not prepend the card thumbnail if that asset is separate from `images`.
+   */
+  galleryUrls?: string[];
   link?: string;
 };
 
@@ -32,6 +37,8 @@ type GqlPortfolio = {
   description?: string | null;
   skills?: Array<string | null> | null;
   link?: string | null;
+  /** Contentful: field `thumbnail` — Media, single file (card cover; optional) */
+  thumbnail?: GqlAsset;
   /** Contentful: field `images` — Media, many files */
   imagesCollection?: { items: Array<GqlAsset | null> } | null;
 };
@@ -51,15 +58,17 @@ function mapPortfolioItem(item: GqlPortfolio): PortfolioCard | null {
   const description = (item.description ?? "").trim();
   if (!title && !description) return null;
 
-  const orderedUnique = [
+  const galleryOrdered = [
     ...new Set(
       (item.imagesCollection?.items ?? [])
         .map((a) => toUrl((a?.url ?? "").trim()))
         .filter(Boolean) as string[],
     ),
   ];
-  const thumb = orderedUnique[0];
-  const extras = orderedUnique.length > 1 ? orderedUnique.slice(1) : undefined;
+  const thumbOnly = toUrl((item.thumbnail?.url ?? "").trim());
+  const cardImage = thumbOnly || galleryOrdered[0];
+  const galleryUrls =
+    galleryOrdered.length > 0 ? galleryOrdered : thumbOnly ? [thumbOnly] : [];
 
   return {
     id: item.sys.id,
@@ -68,8 +77,8 @@ function mapPortfolioItem(item: GqlPortfolio): PortfolioCard | null {
     skills: (item.skills ?? [])
       .map((v) => (v ?? "").trim())
       .filter(Boolean),
-    image: thumb,
-    images: extras,
+    image: cardImage,
+    galleryUrls: galleryUrls.length ? galleryUrls : undefined,
     link: toUrl((item.link ?? "").trim()),
   };
 }
@@ -98,6 +107,9 @@ export async function fetchPortfoliosFromCms(): Promise<PortfolioCard[]> {
                 description
                 link
                 skills
+                thumbnail {
+                  url
+                }
                 imagesCollection(limit: 24) {
                   items {
                     url
@@ -128,6 +140,9 @@ export async function fetchPortfoliosFromCms(): Promise<PortfolioCard[]> {
                   description
                   link
                   skills
+                  thumbnail {
+                    url
+                  }
                   imagesCollection(limit: 24) {
                     items {
                       url
