@@ -119,12 +119,13 @@ const ExperienceSection = () => {
 
           {!showSkeleton &&
             source !== "empty" &&
-            experiences.map((exp, i) => (
+            experiences.map((exp) => (
               <motion.div
                 key={exp.id}
-                initial={{ opacity: 0, x: -30 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.15 * i }}
+                initial={{ opacity: 0, y: 28, x: -16 }}
+                whileInView={{ opacity: 1, y: 0, x: 0 }}
+                viewport={{ once: false, amount: 0.35, margin: "0px 0px -12% 0px" }}
+                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
                 className="relative grid grid-cols-[12rem_1fr] gap-x-8 pb-12 last:pb-0 group"
               >
                 <div className="flex w-full justify-end pt-1.5 pr-0">
