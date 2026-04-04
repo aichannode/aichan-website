@@ -11,7 +11,7 @@ import {
 import { cn } from "@/lib/utils";
 import { getProjectGalleryUrls } from "@/utils/project-gallery";
 
-const MEDIA_HEIGHT = "h-[min(22rem,40vh)]";
+const MEDIA_HEIGHT = "h-[min(26rem,48vh)]";
 
 type ProjectModalMediaProps = {
   project: DisplayProject;
@@ -26,7 +26,7 @@ export function ProjectModalMedia({ project, gradientClass }: ProjectModalMediaP
       <div
         className={cn(
           MEDIA_HEIGHT,
-          "w-full shrink-0 border-b border-border bg-gradient-to-br",
+          "w-full shrink-0 bg-gradient-to-br",
           gradientClass,
         )}
       />
@@ -38,7 +38,7 @@ export function ProjectModalMedia({ project, gradientClass }: ProjectModalMediaP
       <div
         className={cn(
           MEDIA_HEIGHT,
-          "relative w-full shrink-0 overflow-hidden border-b border-border bg-muted/10",
+          "relative w-full shrink-0 overflow-hidden bg-muted/10",
         )}
       >
         <img src={urls[0]} alt="" className="block h-full w-full object-cover object-center" />
@@ -66,7 +66,7 @@ function ModalImageCarousel({ urls, projectId }: { urls: string[]; projectId: st
   }, [api]);
 
   return (
-    <div className={cn(MEDIA_HEIGHT, "relative w-full shrink-0 border-b border-border bg-muted/10")}>
+    <div className={cn(MEDIA_HEIGHT, "relative w-full shrink-0 bg-muted/10")}>
       <Carousel setApi={setApi} opts={{ align: "start", loop: true }} className="h-full w-full [&>div]:h-full">
         <CarouselContent className="-ml-0 h-full">
           {urls.map((src, idx) => (

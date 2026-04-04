@@ -39,8 +39,8 @@ export function ProjectDetailModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         className={cn(
-          "flex h-[min(90vh,44rem)] w-[min(34rem,calc(100vw-2rem))] max-w-[34rem] flex-col gap-0 overflow-hidden border-border p-0",
-          "sm:w-[38rem] sm:max-w-[38rem] sm:rounded-xl",
+          "flex h-[min(90vh,46rem)] w-[min(42rem,calc(100vw-2rem))] max-w-[42rem] flex-col gap-0 overflow-hidden border-border p-0",
+          "sm:w-[48rem] sm:max-w-[48rem] sm:rounded-xl",
         )}
       >
         {project ? (
@@ -48,8 +48,8 @@ export function ProjectDetailModal({
             <ProjectModalMedia project={project} gradientClass={gradient} />
 
             <div className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden bg-background">
-              <div className="space-y-5 p-5 pt-5 sm:p-6">
-                <DialogHeader className="space-y-3 text-left">
+              <div className="space-y-4 p-4 pt-4 sm:p-5">
+                <DialogHeader className="space-y-2.5 text-left">
                   <DialogTitle className="text-xl font-bold leading-tight sm:text-2xl">
                     {project.title}
                   </DialogTitle>
@@ -57,21 +57,23 @@ export function ProjectDetailModal({
                     {project.description}
                   </DialogDescription>
                 </DialogHeader>
-
-                {(project.skills?.length ?? 0) > 0 ? (
-                  <div className="flex flex-wrap gap-2">
-                    {project.skills.map((tag) => (
-                      <span
-                        key={`${project.id}-${tag}`}
-                        className="rounded-md bg-secondary px-2.5 py-1 font-mono text-xs text-muted-foreground"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                ) : null}
               </div>
             </div>
+
+            {(project.skills?.length ?? 0) > 0 ? (
+              <div className="shrink-0 bg-background px-4 pb-3 pt-2 sm:px-6 sm:pb-3 sm:pt-2.5">
+                <div className="flex flex-wrap gap-2">
+                  {project.skills.map((tag) => (
+                    <span
+                      key={`${project.id}-${tag}`}
+                      className="rounded-md bg-secondary px-2.5 py-1 font-mono text-xs text-muted-foreground"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ) : null}
 
             <div className="flex w-full shrink-0 items-stretch gap-3 bg-background px-5 py-4 sm:px-6">
               {live && project.link ? (
