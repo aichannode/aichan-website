@@ -1,6 +1,7 @@
 import ParticleField from "@/components/ParticleField";
 import Globe from "@/components/Globe";
 import Navbar from "@/components/Navbar";
+import SiteDocumentHead from "@/components/SiteDocumentHead";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import SkillsSection from "@/components/SkillsSection";
@@ -13,6 +14,7 @@ import Footer from "@/components/Footer";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background grid-bg">
+      <SiteDocumentHead />
       <ParticleField />
       <Globe />
       <Navbar />

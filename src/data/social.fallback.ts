@@ -6,6 +6,10 @@ export const socialProfileFallback: SocialProfile = {
   name: "fallback",
   fullname: "Jesus Monroig",
   role: "Blockchain & AI Engineer",
+  metaDescription:
+    "Jesus Monroig — Blockchain & AI Engineer specializing in EVM, Solana, and LLMs. Currently at RadCrew.",
+  ogImage: "https://ibb.co/chy1bBC5",
+  twitterSite: "@Lovable",
   phone: undefined,
   location: "Puerto Rico",
   email: "aichannode@gmail.com",

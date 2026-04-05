@@ -1,12 +1,18 @@
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
+import { socialProfileFallback } from "@/data/social.fallback";
+import { useSocialProfile } from "@/hooks/useSocialProfile";
 import { cn } from "@/lib/utils";
 import heroBgDark from "@/assets/hero-bg.jpg";
 import heroBgLight from "@/assets/hero-bg-light.jpg";
 
 const HeroSection = () => {
   const { theme } = useTheme();
+  const { profile } = useSocialProfile();
+  const fullname = profile.fullname?.trim() || socialProfileFallback.fullname!;
+  const firstName = fullname.split(/\s+/)[0] || fullname;
+  const role = profile.role?.trim() || socialProfileFallback.role!;
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -67,11 +73,9 @@ const HeroSection = () => {
             className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-6"
           >
             <span className="text-foreground">Hi, I'm </span>
-            <span className="gradient-text">Jesus</span>
+            <span className="gradient-text">{firstName}</span>
             <br />
-            <span className="text-foreground text-4xl md:text-5xl lg:text-6xl">
-              Blockchain & AI Engineer
-            </span>
+            <span className="text-foreground text-4xl md:text-5xl lg:text-6xl">{role}</span>
           </motion.h1>
 
           <motion.p

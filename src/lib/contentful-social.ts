@@ -14,6 +14,12 @@ export type SocialProfile = {
   role?: string;
   phone?: string;
   location?: string;
+  /** `<meta name="description">`, Open Graph & Twitter description */
+  metaDescription?: string;
+  /** Absolute URL for `og:image` and `twitter:image` */
+  ogImage?: string;
+  /** Twitter @handle for `twitter:site` (with or without leading @) */
+  twitterSite?: string;
   linkedin?: string;
   email?: string;
   github?: string;
@@ -43,6 +49,9 @@ type GqlSocial = {
   location?: string | null;
   fullname?: string | null;
   role?: string | null;
+  metaDescription?: string | null;
+  ogImage?: string | null;
+  twitterSite?: string | null;
   linkedin?: string | null;
   email?: string | null;
   github?: string | null;
@@ -57,6 +66,9 @@ function mapSocialItem(item: GqlSocial): SocialProfile {
     name: trim(item.name) ?? "—",
     fullname: trim(item.fullname),
     role: trim(item.role),
+    metaDescription: trim(item.metaDescription),
+    ogImage: trim(item.ogImage) ? toWebUrl(item.ogImage!.trim()) : undefined,
+    twitterSite: trim(item.twitterSite),
     phone: trim(item.phone),
     location: trim(item.location),
     linkedin: trim(item.linkedin) ? toWebUrl(item.linkedin!.trim()) : undefined,
@@ -88,6 +100,9 @@ export async function fetchSocialFromCms(): Promise<SocialProfile | null> {
           location
           fullname
           role
+          metaDescription
+          ogImage
+          twitterSite
           linkedin
           email
           github
@@ -113,6 +128,9 @@ export async function fetchSocialFromCms(): Promise<SocialProfile | null> {
           location
           fullname
           role
+          metaDescription
+          ogImage
+          twitterSite
           linkedin
           email
           github

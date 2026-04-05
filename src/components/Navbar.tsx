@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Sun, Moon } from "lucide-react";
+import { socialProfileFallback } from "@/data/social.fallback";
+import { useSocialProfile } from "@/hooks/useSocialProfile";
 import { useTheme } from "./ThemeProvider";
 
 const navItems = [
@@ -12,10 +14,24 @@ const navItems = [
   { label: "Contact", href: "#contact" },
 ];
 
+function splitFullnameForBrand(fullname: string): { first: string; rest: string } {
+  const t = fullname.trim();
+  if (!t) return { first: "", rest: "" };
+  const parts = t.split(/\s+/);
+  if (parts.length === 1) return { first: parts[0]!, rest: "" };
+  return { first: parts[0]!, rest: parts.slice(1).join(" ") };
+}
+
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const { profile } = useSocialProfile();
+  const fullname = profile.fullname?.trim() || socialProfileFallback.fullname!;
+  const { first: brandFirst, rest: brandRest } = useMemo(
+    () => splitFullnameForBrand(fullname),
+    [fullname],
+  );
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -34,8 +50,8 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         <a href="#" className="text-xl font-bold tracking-tight">
-          <span className="text-primary text-glow">Jesus</span>
-          <span className="ml-1 text-foreground">Monroig</span>
+          <span className="text-primary text-glow">{brandFirst}</span>
+          {brandRest ? <span className="ml-1 text-foreground">{brandRest}</span> : null}
         </a>
 
         <div className="hidden md:flex items-center gap-8">
