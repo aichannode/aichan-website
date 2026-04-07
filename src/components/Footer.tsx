@@ -4,7 +4,7 @@ import { getFooterSocialLinks } from "@/utils/social-footer-links";
 const Footer = () => {
   const { profile } = useSocialProfile();
   const socialLinks = getFooterSocialLinks(profile);
-  const ownerName = profile.fullname?.trim() || "Jesus Monroig";
+  const ownerName = profile.fullname?.trim() || "Hector Rosado";
   const year = new Date().getFullYear();
 
   return (
