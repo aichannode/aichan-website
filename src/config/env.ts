@@ -1,10 +1,8 @@
 /**
- * Client-side public environment (Next.js inlines `NEXT_PUBLIC_*` for the browser bundle).
+ * Client-side public environment. Values come from `NEXT_PUBLIC_*` (and, locally, from `VITE_*`
+ * bridged in `next.config.ts` for migration from Vite).
  *
- * Vercel: Project → Settings → Environment Variables
- * - Use the `NEXT_PUBLIC_` names below.
- * - Enable for "Production" and "Preview" as needed.
- * - Redeploy after adding or changing variables.
+ * Vercel: use `NEXT_PUBLIC_*` only — `VITE_*` is not applied on the server build unless you add it.
  *
  * @see https://nextjs.org/docs/app/building-your-application/configuring/environment-variables
  */
