@@ -1,5 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, type FormEvent } from "react";
+import { SectionPageTitle } from "@/components/SectionPageTitle";
 import { Loader2, Mail, MapPin, Send } from "lucide-react";
 import { toast } from "@/components/ui/sonner";
 import { env, isWeb3FormsConfigured } from "@/config/env";
@@ -87,14 +88,10 @@ const ContactSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <div className="flex items-center gap-3 mb-4">
-            <div className="h-px w-12 bg-primary" />
-            <span className="text-primary font-mono text-sm tracking-wider uppercase">Contact</span>
-          </div>
-
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 text-foreground">
-            Let's Build <span className="gradient-text">Together</span>
-          </h2>
+          <SectionPageTitle kicker="Contact" headingSpacingClassName="mb-6">
+            {"Let's Build "}
+            <span className="gradient-text">Together</span>
+          </SectionPageTitle>
 
           <p className="text-muted-foreground text-lg mb-12 max-w-xl">
             Have a project in mind? Whether it's AI, product work, or full-stack — I'd love to hear about it.

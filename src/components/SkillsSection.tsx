@@ -1,5 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { SectionPageTitle } from "@/components/SectionPageTitle";
 
 const skillCategories = [
   {
@@ -79,14 +80,9 @@ const SkillsSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <div className="flex items-center gap-3 mb-4">
-            <div className="h-px w-12 bg-primary" />
-            <span className="text-primary font-mono text-sm tracking-wider uppercase">Skills</span>
-          </div>
-
-          <h2 className="text-3xl md:text-5xl font-bold mb-16 text-foreground">
+          <SectionPageTitle kicker="Skills">
             Tech <span className="gradient-text">Arsenal</span>
-          </h2>
+          </SectionPageTitle>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">

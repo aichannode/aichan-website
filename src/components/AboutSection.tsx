@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { SectionPageTitle } from "@/components/SectionPageTitle";
 
 const stats = [
   { value: "10+", label: "Years Experience" },
