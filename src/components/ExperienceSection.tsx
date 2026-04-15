@@ -1,5 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useMemo, useRef } from "react";
+import { SectionPageTitle } from "@/components/SectionPageTitle";
 import { EXPERIENCE_SECTION_SKELETON_COUNT } from "@/constants/experience-ui";
 import { experiencesFallback } from "@/data/experiences.fallback";
 import { useExperiences } from "@/hooks/useExperiences";
@@ -62,14 +63,9 @@ const ExperienceSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <div className="flex items-center gap-3 mb-4">
-            <div className="h-px w-12 bg-primary" />
-            <span className="text-primary font-mono text-sm tracking-wider uppercase">Experience</span>
-          </div>
-
-          <h2 className="text-3xl md:text-5xl font-bold mb-16 text-foreground">
+          <SectionPageTitle kicker="Experience">
             Career <span className="gradient-text">Journey</span>
-          </h2>
+          </SectionPageTitle>
         </motion.div>
 
         {/* Shift left so card column centers on viewport (matches fixed centered globe). Offset = date col + half gap = 12rem + 1rem */}

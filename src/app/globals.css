@@ -191,3 +191,57 @@
     background-size: 60px 60px;
   }
 }
+
+/*
+ * CryptoCursor: hide the system hand/pointer (and Tailwind cursor-pointer) so the ETH
+ * follower reads as the only cursor. Outside @layer so this wins over utilities.
+ */
+@media (pointer: fine) {
+  html.crypto-cursor-active *,
+  html.crypto-cursor-active *::before,
+  html.crypto-cursor-active *::after {
+    cursor: none !important;
+  }
+
+  html.crypto-cursor-active input[type="text"],
+  html.crypto-cursor-active input[type="email"],
+  html.crypto-cursor-active input[type="password"],
+  html.crypto-cursor-active input[type="search"],
+  html.crypto-cursor-active input[type="url"],
+  html.crypto-cursor-active input[type="tel"],
+  html.crypto-cursor-active input[type="number"],
+  html.crypto-cursor-active input:not([type]),
+  html.crypto-cursor-active textarea,
+  html.crypto-cursor-active [contenteditable="true"] {
+    cursor: text !important;
+  }
+
+  html.crypto-cursor-active *:disabled,
+  html.crypto-cursor-active *[aria-disabled="true"] {
+    cursor: not-allowed !important;
+  }
+
+  html.crypto-cursor-active .cursor-w-resize {
+    cursor: w-resize !important;
+  }
+
+  html.crypto-cursor-active .cursor-e-resize {
+    cursor: e-resize !important;
+  }
+
+  html.crypto-cursor-active .cursor-nwse-resize {
+    cursor: nwse-resize !important;
+  }
+
+  html.crypto-cursor-active .cursor-ns-resize {
+    cursor: ns-resize !important;
+  }
+
+  html.crypto-cursor-active .cursor-grab {
+    cursor: grab !important;
+  }
+
+  html.crypto-cursor-active .cursor-grabbing {
+    cursor: grabbing !important;
+  }
+}

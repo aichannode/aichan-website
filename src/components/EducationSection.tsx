@@ -1,5 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { SectionPageTitle } from "@/components/SectionPageTitle";
 import { GraduationCap } from "lucide-react";
 
 const education: {
@@ -26,14 +27,9 @@ const EducationSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <div className="flex items-center gap-3 mb-4">
-            <div className="h-px w-12 bg-primary" />
-            <span className="text-primary font-mono text-sm tracking-wider uppercase">Education</span>
-          </div>
-
-          <h2 className="text-3xl md:text-5xl font-bold mb-16 text-foreground">
+          <SectionPageTitle kicker="Education">
             Academic <span className="gradient-text">Background</span>
-          </h2>
+          </SectionPageTitle>
         </motion.div>
 
         <div className="max-w-4xl mx-auto space-y-6">
